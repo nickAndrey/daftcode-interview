@@ -1,0 +1,12 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    command: npm start
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '8080:4173'
+    command: npm run preview

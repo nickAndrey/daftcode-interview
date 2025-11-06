@@ -1,0 +1,23 @@
+
+# Env & secrets
+.env
+
+# Docker
+*.log
+*.pid
+*.sock
+*.tmp
+*.bak
+*.swp
+*.env
+.dockerignore
+
+# Node-related
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Editor files
+.idea/
+.vscode/
+.DS_Store
