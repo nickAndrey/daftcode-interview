@@ -12,6 +12,8 @@
 *.env
 .dockerignore
 
+.http
+
 # Node-related
 node_modules/
 npm-debug.log*
