@@ -1,5 +1,5 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 
 const app = express();
 app.use(cors());
@@ -22,7 +22,7 @@ const validateCache = () => {
 };
 
 async function fetchPokemonList() {
-  const response = await fetch(`${pokemonApi}/pokemon`);
+  const response = await fetch(`${pokemonApi}/pokemon?limit=2000`);
   const responseJson = await response.json();
   return responseJson;
 }
@@ -41,7 +41,7 @@ app.get('/api/pokemons', async (req, res) => {
       pokemonListCache.data = await fetchPokemonList();
       pokemonListCache.timestamp = Date.now();
     }
-    res.json(pokemonListCache);
+    res.json(pokemonListCache.data);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: 'Failed to fetch pokemons' });
