@@ -2,7 +2,7 @@
   "name": "dafcode-test",
   "version": "1.0.0",
   "scripts": {
-    "docker:dev": "docker compose --env-file .env.dev up --build",
+    "docker:dev": "docker compose --env-file .env.dev up",
     "docker:prod": "docker compose -f compose.prod.yml --env-file .env.prod up --build -d",
     "docker:down": "docker compose down"
   }

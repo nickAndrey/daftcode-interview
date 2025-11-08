@@ -17,7 +17,7 @@ onMounted(async () => {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pokemons`)
     const responseJson = await response.json()
-    initialData.value = responseJson.results
+    initialData.value = responseJson
   } catch (err) {
     error.value = 'unable to fetch data'
   }
