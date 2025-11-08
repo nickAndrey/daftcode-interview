@@ -2,11 +2,25 @@ services:
   backend:
     build:
       context: ./backend
-    command: npm start
+      target: 'prod'
+      args:
+        POKEMON_API_URL: ${POKEMON_API_URL}
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      POKEMON_API_URL: ${POKEMON_API_URL}
+      NODE_ENV: ${NODE_ENV}
+    ports:
+      - '8081:3000'
 
   frontend:
     build:
       context: ./frontend
+      target: 'prod'
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        NODE_ENV: ${NODE_ENV}
+    environment:
+      VITE_API_URL: ${VITE_API_URL}
+      NODE_ENV: ${NODE_ENV}
     ports:
-      - '8080:4173'
-    command: npm run preview
+      - '8080:80'

@@ -2,6 +2,7 @@ services:
   backend:
     build:
       context: './backend'
+      target: 'builder'
       args:
         POKEMON_API_URL: ${POKEMON_API_URL}
         NODE_ENV: ${NODE_ENV}
@@ -13,11 +14,12 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    command: ['npm', 'run', 'dev']
+    command: 'npm run dev'
 
   frontend:
     build:
       context: './frontend'
+      target: 'builder'
       args:
         VITE_API_URL: ${VITE_API_URL}
         NODE_ENV: ${NODE_ENV}
@@ -29,6 +31,6 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    command: ['npm', 'run', 'dev']
+    command: 'npm run dev'
     depends_on:
       - backend

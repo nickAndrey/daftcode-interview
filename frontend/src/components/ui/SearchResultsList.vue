@@ -12,7 +12,7 @@ const props = defineProps<{
     <li v-if="props.data.length === 0">No Data</li>
     <li
       v-for="pokemon in props.data"
-      :key="pokemon.id"
+      :key="pokemon.name"
       class="flex gap-2 w-full p-2 items-center hover:bg-amber-200/30 rounded-4xl"
       @click="props.itemClick(pokemon.name)"
     >

@@ -18,9 +18,7 @@ const open = defineModel<boolean>()
     <DialogContent>
       <DialogHeader>
         <DialogTitle class="capitalize">{{ props.details?.name }}</DialogTitle>
-        <DialogDescription>{{
-          props.details?.flavor_text_entries[0]?.flavor_text
-        }}</DialogDescription>
+        <DialogDescription></DialogDescription>
       </DialogHeader>
 
       <DialogFooter> Save changes </DialogFooter>
