@@ -5,10 +5,8 @@ services:
       target: 'builder'
       args:
         POKEMON_API_URL: ${POKEMON_API_URL}
-        NODE_ENV: ${NODE_ENV}
     environment:
       POKEMON_API_URL: ${POKEMON_API_URL}
-      NODE_ENV: ${NODE_ENV}
     ports:
       - '8081:3000'
     volumes:
@@ -22,10 +20,8 @@ services:
       target: 'builder'
       args:
         VITE_API_URL: ${VITE_API_URL}
-        NODE_ENV: ${NODE_ENV}
     environment:
       VITE_API_URL: ${VITE_API_URL}
-      NODE_ENV: ${NODE_ENV}
     ports:
       - '8080:5173'
     volumes:
