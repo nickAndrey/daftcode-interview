@@ -78,6 +78,6 @@ export async function getPokemonDetails(req: Request, res: Response) {
     speciesData = await speciesRes.json();
   }
 
-  cacheManager.details.set(name, { ...speciesData, ...pokemonData });
-  res.status(200).json({ ...speciesData, ...pokemonData });
+  cacheManager.details.set(name, { ...pokemonData, ...speciesData });
+  res.status(200).json({ ...pokemonData, ...speciesData });
 }
