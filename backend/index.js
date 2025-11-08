@@ -31,6 +31,7 @@ async function fetchPokemonList() {
 
       return {
         ...item,
+        id,
         avatar: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
       };
     }),
@@ -38,9 +39,16 @@ async function fetchPokemonList() {
 }
 
 async function fetchSinglePokemon(name) {
-  const response = await fetch(`${pokemonApi}/pokemon/${name}`);
-  const responseJson = await response.json();
-  return responseJson;
+  const pokemonRes = await fetch(`${pokemonApi}/pokemon/${name}`);
+  const pokemonData = await pokemonRes.json();
+
+  const speciesRes = await fetch(`${pokemonApi}/pokemon-species/${name}`);
+  const speciesData = await speciesRes.json();
+
+  return {
+    ...pokemonData,
+    ...speciesData,
+  };
 }
 
 app.get('/api/pokemons', async (req, res) => {

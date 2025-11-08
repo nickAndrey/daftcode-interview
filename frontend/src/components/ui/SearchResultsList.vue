@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { Pokemon } from '@/models/pokemon'
 
-const props = defineProps<{ data: Pokemon[] }>()
+const props = defineProps<{
+  data: Pokemon[]
+  itemClick: (name: string) => void
+}>()
 </script>
 
 <template>
@@ -9,8 +12,9 @@ const props = defineProps<{ data: Pokemon[] }>()
     <li v-if="props.data.length === 0">No Data</li>
     <li
       v-for="pokemon in props.data"
-      :key="pokemon.name"
+      :key="pokemon.id"
       class="flex gap-2 w-full p-2 items-center hover:bg-amber-200/30 rounded-4xl"
+      @click="props.itemClick(pokemon.name)"
     >
       <img :src="pokemon.avatar" class="w-12 h-12 aspect-square" loading="lazy" />
       <p class="capitalize text-md font-semibold">{{ pokemon.name }}</p>
