@@ -24,7 +24,17 @@ const validateCache = () => {
 async function fetchPokemonList() {
   const response = await fetch(`${pokemonApi}/pokemon?limit=2000`);
   const responseJson = await response.json();
-  return responseJson;
+  return {
+    ...responseJson,
+    results: responseJson.results.map((item) => {
+      const id = item.url.split('/').filter(Boolean).pop();
+
+      return {
+        ...item,
+        avatar: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+      };
+    }),
+  };
 }
 
 async function fetchSinglePokemon(name) {

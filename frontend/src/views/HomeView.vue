@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import SearchInput from '@/components/ui/SearchInput.vue'
+import SearchResultsList from '@/components/ui/SearchResultsList.vue'
+import type { Pokemon } from '@/models/pokemon'
 import { computed, onMounted, ref } from 'vue'
 
 const search = ref('')
-
-type Pokemon = { name: string }
 
 const initialData = ref<Pokemon[]>([])
 const error = ref('')
@@ -26,21 +27,9 @@ const filteredData = computed(() => {
 </script>
 
 <template>
-  <h1 class="title">Find your Pokemon</h1>
-
-  <input type="text" v-model.trim="search" />
-
-  <ul>
-    <li v-for="pokemon in filteredData" :key="pokemon.name">{{ pokemon.name }}</li>
-  </ul>
+  <div class="flex flex-col max-w-3xl h-screen m-auto items-center justify-center gap-4">
+    <h1 class="text-5xl">Find your Pokemon</h1>
+    <SearchInput v-model="search" />
+    <SearchResultsList :data="filteredData" />
+  </div>
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-</style>
