@@ -72,7 +72,12 @@ const colors = computed(() => pokemonColorVariants[data.value?.color.name || 'de
       </div>
 
       <div class="flex flex-col items-center">
-        <p class="italic text-sm md:text-base">{{ flavorText }}</p>
+        <div class="w-full">
+          <h3 class="font-bold mt-4 mb-2">Fact:</h3>
+          <div class="px-2">
+            <p>{{ flavorText }}</p>
+          </div>
+        </div>
 
         <div class="w-full">
           <h3 class="font-bold mt-4 mb-2">Attributes:</h3>
@@ -85,8 +90,7 @@ const colors = computed(() => pokemonColorVariants[data.value?.color.name || 'de
         </div>
 
         <div class="w-full">
-          <h3 class="font-bold mt-4 mb-2">Stats</h3>
-
+          <h3 class="font-bold mt-4 mb-2">Stats:</h3>
           <div
             v-for="stat in data.stats"
             :key="stat.stat.name"

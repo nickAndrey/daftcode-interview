@@ -13,6 +13,7 @@ const debouncedSearch = useDebounce(search, 400)
 
 const initialData = ref<Pokemon[]>([])
 const filteredData = ref<Pokemon[]>([])
+const loading = ref(true)
 
 const pokemonDetailsData = ref<Pokemon>()
 const error = ref('')
@@ -24,16 +25,21 @@ onMounted(async () => {
     initialData.value = responseJson
   } catch (err) {
     error.value = 'unable to fetch data'
+  } finally {
+    loading.value = false
   }
 })
 
 watch(debouncedSearch, async (newValue) => {
   try {
+    loading.value = true
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pokemons?search=${newValue}`)
     const responseData = await response.json()
     filteredData.value = responseData
   } catch (err) {
     error.value = 'unable to fetch data'
+  } finally {
+    loading.value = false
   }
 })
 
@@ -59,7 +65,7 @@ const data = computed(() => {
   <div class="flex flex-col max-w-3xl h-screen m-auto items-center justify-center gap-4">
     <h1 class="text-5xl">Find your Pokemon</h1>
     <SearchInput v-model="search" />
-    <SearchResultsList :data="data" :item-click="handleResultsListItemClick" />
+    <SearchResultsList :data="data" :item-click="handleResultsListItemClick" :loading="loading" />
     <PokemonDetailsDialog v-model="isDialogOpen" :details="pokemonDetailsData" />
   </div>
 </template>

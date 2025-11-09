@@ -4,11 +4,13 @@ import type { Pokemon } from '@/models/pokemon'
 const props = defineProps<{
   data: Pokemon[]
   itemClick: (name: string) => void
+  loading: boolean
 }>()
 </script>
 
 <template>
   <ul class="max-h-[300px] overflow-auto w-full shadow-lg rounded-4xl p-4">
+    <li v-if="props.loading">Loading ...</li>
     <li v-if="props.data.length === 0">No Data</li>
     <li
       v-for="pokemon in props.data"
