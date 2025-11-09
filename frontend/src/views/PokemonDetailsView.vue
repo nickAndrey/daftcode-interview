@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Pokemon } from '@/models/pokemon'
 import { Progress } from '@chadcn/components/ui/progress'
+import { ArrowLeft } from 'lucide-vue-next'
 
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -57,6 +58,11 @@ const colors = computed(() => pokemonColorVariants[data.value?.color.name || 'de
       class="grid grid-cols-[3fr_5fr] gap-4 items-center m-auto w-9/10 h-9/10 px-6 py-6 shadow-2xl rounded-sm relative overflow-hidden"
       :class="colors?.bg"
     >
+      <RouterLink to="/" class="flex gap-1 items-center absolute top-3 left-3">
+        <ArrowLeft />
+        Back to Search
+      </RouterLink>
+
       <div class="flex flex-col items-center gap-2 px-2">
         <img
           :src="`${data.sprites.other['official-artwork'].front_default}`"
