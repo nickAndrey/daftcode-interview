@@ -8,7 +8,7 @@ const router = createRouter({
   routes: [
     { path: '/', component: HomeView },
     { path: '/pokemon/:name', component: PokemonDetailsView },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound },
   ],
 })
 

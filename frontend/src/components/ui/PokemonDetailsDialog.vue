@@ -31,7 +31,7 @@ const flavorText = computed(() => {
 
       <div class="relative w-[150px] h-[150px] rounded-full shadow-lg p-4">
         <img
-          :src="props.details?.sprites.other['official-artwork'].front_default"
+          :src="props.details?.sprites.other['official-artwork'].front_default || undefined"
           alt="pokemon"
           class="absolute top-1/2 left-1/2 w-[250px] h-auto -translate-x-1/2 -translate-y-1/2 object-contain"
           loading="lazy"
