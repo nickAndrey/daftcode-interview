@@ -10,15 +10,18 @@ function filter<T>(args: {
   data: T[];
   dataKey: keyof T;
 }): T[] {
-  const regex = new RegExp(args.search, 'ig');
+  const { limit, search, data, dataKey } = args;
+  const normalizedSearch = search.toLowerCase();
 
-  if (!args.search) {
-    return args.data.slice(0, Number(args.limit));
+  if (!normalizedSearch) {
+    return data.slice(0, Number(limit));
   }
 
-  return args.data
-    .filter((item) => regex.test(item[args.dataKey] as string))
-    .slice(0, Number(args.limit));
+  return data
+    .filter((item) =>
+      (item[dataKey] as string).toLowerCase().startsWith(normalizedSearch)
+    )
+    .slice(0, Number(limit));
 }
 
 export async function getPokemonList(req: Request, res: Response) {
@@ -36,17 +39,54 @@ export async function getPokemonList(req: Request, res: Response) {
   const pokemonsRes = await fetch(`${pokemonApi}/pokemon?limit=2000`);
   const pokemonsData = (await pokemonsRes.json()) as { results: Pokemon[] };
 
-  const transformedData: Pokemon[] = pokemonsData.results.map((item) => {
-    const id = item.url.split('/').filter(Boolean).at(-1)!;
-    const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+  const mostRecognizedPokemon = [
+    'Pikachu',
+    'Charizard',
+    'Eevee',
+    'Jigglypuff',
+    'Meowth',
+    'Mewtwo',
+    'Squirtle',
+    'Bulbasaur',
+    "Ash's Pikachu",
+    'Snorlax',
+    'Lucario',
+    'Gengar',
+    'Psyduck',
+    'Meowth (Team Rocket)',
+    'Greninja',
+    'Dragonite',
+    'Gardevoir',
+    'Lapras',
+    'Ditto',
+    'Machamp',
+  ];
 
-    return {
-      id,
-      avatar,
-      name: item.name,
-      url: item.url,
-    };
-  });
+  const recognizedMap = new Map(
+    mostRecognizedPokemon.map((name, index) => [name.toLowerCase(), index])
+  );
+
+  const transformedData: Pokemon[] = pokemonsData.results
+    .map((item) => {
+      const id = item.url.split('/').filter(Boolean).at(-1)!;
+      const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+      return {
+        id,
+        avatar,
+        name: item.name,
+        url: item.url,
+      };
+    })
+    .sort((a, b) => {
+      const indexA = recognizedMap.get(a.name.toLowerCase());
+      const indexB = recognizedMap.get(b.name.toLowerCase());
+
+      if (indexA !== undefined && indexB !== undefined) return indexA - indexB;
+      if (indexA !== undefined) return -1;
+      if (indexB !== undefined) return 1;
+      return a.name.localeCompare(b.name);
+    });
 
   cacheManager.list.set('all', transformedData);
   res
