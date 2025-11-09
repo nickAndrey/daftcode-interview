@@ -32,18 +32,18 @@ const flavorText = computed(() => {
     ?.flavor_text
 })
 
-const pokemonColorVariants: Record<string, { bg: string; hover: string }> = {
-  black: { bg: 'bg-neutral-100/30', hover: 'hover:bg-neutral-300/30' },
-  blue: { bg: 'bg-blue-100/30', hover: 'hover:bg-blue-300/30' },
-  brown: { bg: 'bg-amber-100/30', hover: 'hover:bg-amber-300/30' },
-  gray: { bg: 'bg-gray-100/30', hover: 'hover:bg-gray-300/30' },
-  green: { bg: 'bg-green-100/30', hover: 'hover:bg-green-300/30' },
-  pink: { bg: 'bg-pink-100/30', hover: 'hover:bg-pink-300/30' },
-  purple: { bg: 'bg-purple-100/30', hover: 'hover:bg-purple-300/30' },
-  red: { bg: 'bg-red-100/30', hover: 'hover:bg-red-300/30' },
-  white: { bg: 'bg-gray-100/30', hover: 'hover:bg-gray-300/30' },
-  yellow: { bg: 'bg-yellow-100/30', hover: 'hover:bg-yellow-300/30' },
-  default: { bg: 'bg-gray-100/30', hover: 'hover:bg-gray-300/30' },
+const pokemonColorVariants: Record<string, { bg: string; bg_accent: string }> = {
+  black: { bg: 'bg-neutral-100/30', bg_accent: 'bg-neutral-300/30' },
+  blue: { bg: 'bg-blue-100/30', bg_accent: 'bg-blue-300/30' },
+  brown: { bg: 'bg-amber-100/30', bg_accent: 'bg-amber-300/30' },
+  gray: { bg: 'bg-gray-100/30', bg_accent: 'bg-gray-300/30' },
+  green: { bg: 'bg-green-100/30', bg_accent: 'bg-green-300/30' },
+  pink: { bg: 'bg-pink-100/30', bg_accent: 'bg-pink-300/30' },
+  purple: { bg: 'bg-purple-100/30', bg_accent: 'bg-purple-300/30' },
+  red: { bg: 'bg-red-100/30', bg_accent: 'bg-red-300/30' },
+  white: { bg: 'bg-gray-100/30', bg_accent: 'bg-gray-300/30' },
+  yellow: { bg: 'bg-yellow-100/30', bg_accent: 'bg-yellow-300/30' },
+  default: { bg: 'bg-gray-100/30', bg_accent: 'bg-gray-300/30' },
 }
 
 const colors = computed(() => pokemonColorVariants[data.value?.color.name || 'default'])
@@ -98,9 +98,12 @@ const colors = computed(() => pokemonColorVariants[data.value?.color.name || 'de
         <div class="w-full">
           <h3 class="font-bold mt-4 mb-2">Stats:</h3>
           <div
-            v-for="stat in data.stats"
+            v-for="(stat, index) in data.stats"
             :key="stat.stat.name"
-            :class="`grid grid-cols-[auto_1fr_auto] items-center gap-2 text-sm px-2 rounded-2xl ${colors?.hover}`"
+            :class="[
+              'grid grid-cols-[auto_1fr_auto] items-center gap-2 text-sm px-2 py-1',
+              index % 2 === 0 ? colors?.bg_accent : colors?.bg,
+            ]"
           >
             <span class="w-28 capitalize">
               {{ stat.stat.name }}

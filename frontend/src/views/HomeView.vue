@@ -21,7 +21,7 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pokemons?limit=20`)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/pokemons/popular`)
     const responseJson = await response.json()
     initialData.value = responseJson
   } catch (err) {
