@@ -15,6 +15,10 @@ This project contains a **Vue 3 frontend** and a **Express.js backend**, both fu
 - **Dockerized** environment (frontend + backend)
 - **Single-command run:** `npm run docker:dev` or `npm run docker:prod`
 
+> ### Search behavior
+> - On first load, the UI displays a list of the **most recognizable Pokémon** (e.g. Pikachu, Charizard, Eevee…).
+> - When typing in the search bar, results update using **incremental alphabetical search** (e.g. `a` → `ab` → `abra`), showing Pokémon whose names start with the entered letters.
+
 ---
 
 ### Environment
